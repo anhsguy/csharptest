@@ -1,5 +1,5 @@
-# Use the official .NET SDK as a parent image
-FROM mcr.microsoft.com/dotnet/sdk:latest AS build-env
+# Use the official .NET SDK for building
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 
 # Set the working directory in the container
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY . .
 RUN dotnet publish -c Release -o out
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/runtime:latest
+FROM mcr.microsoft.com/dotnet/runtime:6.0
 WORKDIR /app
 COPY --from=build-env /app/out .
 
